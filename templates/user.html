@@ -1,0 +1,49 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+
+
+
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Username</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Email</th>
+        <th scope="col">Delete?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{user.username}}</th>
+        <td>{{user.first_name}}</td>
+        <td>{{user.last_name}}</td>
+        <td>{{user.email}}</td>
+        <td> <form action="/users/{{user.username}}/delete" method="POST">
+            <a href="/users/{{user.username}}/delete"> <button type="submit" class="btn btn-danger"><i class="far fa-trash-alt"></i></button></a></form>
+        </td>
+      </tr>
+    
+    </tbody>
+  </table>
+  <a href="/users/{{user.username}}/feedback/add"><button>Add Feedback</button></a>
+  <div class="row">
+  {% for feed in feedback %}
+  <div class="col-sm-6">
+  <div class="card mt-4  align-items-center" style="width: 18rem;">
+    
+    <div class="card-body mt-2 ">
+      <h5 class="card-title">{{feed.title}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">posted by {{feed.username}}</h6>
+      <p class="card-text">{{feed.content}}</p>
+      <a href="/feedback/{{feed.id}}/update" class="card-link">Edit Feedback</a>
+       <form  action="/feedback/{{feed.id}}/delete" method="POST"><a href="/feedback/{{feed.id}}/delete"> <button class="btn btn-danger py-auto" type="submit" ><i class="far fa-trash-alt"></i></button> </a></form>
+    </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}
